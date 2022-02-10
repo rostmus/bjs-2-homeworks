@@ -16,13 +16,18 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {    //процентная ставка, сумма первоначального взноса, сумма кредита и срок
-  if (typeof percent !== 'string' && typeof percent !== 'number') {
-    return `Параметр "Процентная ставка" содержит неправильное значение ${percent}`
-  } else if (typeof contribution !== 'string' && typeof contribution !== 'number') {
-    return `Параметр "Первоначальный взнос" содержит неправильное значение ${contribution}`
-  } else if (typeof amount !== 'string' && typeof amount !== 'number') {
-    return `Параметр "Сумма кредита" содержит неправильное значение ${amount}`
-  } else {
+  if (Number(percent) !== Number(percent)) {
+    return `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`
+  } 
+
+  if (Number(contribution) !== Number(contribution)) {
+    return `Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`
+  } 
+
+  if (Number(amount) !== Number(amount)) {
+    return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`
+  } 
+  
   let totalAmount;
   let S = amount - contribution // тело кредита
   let now = new Date() //новая дата
@@ -34,4 +39,4 @@ function calculateTotalMortgage(percent, contribution, amount, date) {    //пр
 
   return totalAmount;
   }
-}
+
