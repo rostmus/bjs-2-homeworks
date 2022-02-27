@@ -76,7 +76,7 @@ class Library {
     }
 
     findBookBy(type, value) {
-        const result = this.books.find(bookFind => bookFind.type == value)
+        const result = this.books.find(bookFind => bookFind[type] == value)
         if (result === undefined) {
             return null
         } else {
@@ -108,23 +108,36 @@ class Student {
         this.marks = {}
     }
     addMark(mark, namePredmet) {
-        if (mark > 1 || marl > 5) {
+        if (mark < 1 || mark > 5) {
             return 'ошибка, оценка должна быть числом от 1 до 5'
-        } else if (this.marks.namePredmet === undefined) {
-         this.marks.namePredmet = [mark]
+        } else if (this.marks[namePredmet] === undefined) {
+         this.marks[namePredmet] = [mark]
      } else {
-         this.marks.namePredmet.push(mark)
+         this.marks[namePredmet].push(mark)
      }
     }
 
     addAverage(namePredmet) {
         let sum = 0
-        for (let i = 0; i < this.marks.namePredmet.length; i++) {
-            sum += this.marks.namePredmet[i]
+        for (let i = 0; i < this.marks[namePredmet].length; i++) {
+            sum += this.marks[namePredmet][i]
 
         }
-        return sum/this.marks.namePredmet.length
+        return sum/this.marks[namePredmet].length
     }
-    
+
+    addAverageAll() {
+        let sum = 0
+        let lama = 0
+        for (let key in this.marks) {
+            let markOne = this.marks[key]
+            for (let i = 0; i < markOne.length; i++) {
+                sum += markOne[i]
+                lama += 1
+            }
+        }
+        return sum/lama
+    }
+
 }
 const student1 = new Student('vasya', 'm', 18)
