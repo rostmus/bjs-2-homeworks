@@ -1,25 +1,18 @@
 function parseCount(value) {
-    try {
         let result = Number.parseInt(value)
-        if (isNaN(result) === true) {
-            throw new Error
-        }
-        return result
-    } catch (Error) {
-        return 'Невалидное значение'
+        if (isNaN(result)) {
+            throw new Error('Невалидное значение')
     }
+    return result
 }
 
-function validateunt(value2) {
-    try {
-        let result = parseCount(value2)
-        if (isNaN(result) === true) {
-            throw new Error
-        }
-        return result
-    } catch (Error) {
-        return 'Невалидное значение'
-    }
+
+function validateCount(value) {
+ try {
+     return parseCount(value)
+ } catch(er) {
+     return er
+ }
 }
 
 class Triangle {
@@ -27,29 +20,27 @@ class Triangle {
         this.a = a
         this.b = b
         this.c = c
-        if (this.a + this.b < this.c || this.a + this.c < this.b || this.c + this.b < this.a) {
+        if (a + b < c || a + c < b || c + b < a) {
             throw new Error ('Треугольник с такими сторонами не существует')
         }
     }
-    getPerimetr() {
+    getPerimeter() {
+
         return this.a + this.b + this.c
+ 
     }
     
     getArea() { 
-        const p = (this.a + this.b + this.c) / 2
-        return Math.sqrt((p * (p - this.a) * (p - this.b) * (p - this.c)))
+        const p = this.getPerimeter() / 2
+        return Number(Math.sqrt((p * (p - this.a) * (p - this.b) * (p - this.c))).toFixed(3))
     }
 }
 
 function getTriangle(a, b, c) {
         try {
-            if (this.a + this.b < this.c || this.a + this.c < this.b || this.c + this.b < this.a) {
-                throw new Error
-            }
             return new Triangle(a, b, c)
         } catch {
-            return {[this.getArea()]: 'ошибка! треугольник не существует', [this.getPerimetr()]: 'ошибка, треугольник не существует'}
+            return {getArea: function()  {return 'Ошибка! Треугольник не существует'}, getPerimetr: function()  {return 'Ошибка! Треугольник не существует'}}
         }
 }
 
-const trian = new Triangle(12, 12, 12)
