@@ -33,7 +33,7 @@ class Magazine extends PrintEditionItem {
 }
 
 class Book extends PrintEditionItem {
-    constructor(name, releaseDate, pagesCount, author) {
+    constructor(author, name, releaseDate, pagesCount) {
         super(name, releaseDate, pagesCount)
         this.author = author
         this.type = 'book'
@@ -43,21 +43,21 @@ class Book extends PrintEditionItem {
 
 class NovelBook extends Book {
     constructor(author, name, releaseDate, pagesCount) {
-        super(name, releaseDate, pagesCount, author)
+        super(author, name, releaseDate, pagesCount)
         this.type = 'novel'
     }
 }
 
 class FantasticBook extends Book {
     constructor(author, name, releaseDate, pagesCount) {
-        super(name, releaseDate, pagesCount, author)
+        super(author, name, releaseDate, pagesCount)
         this.type = 'fantastic'
     }
 }
 
 class DetectiveBook extends Book {
     constructor(author, name, releaseDate, pagesCount) {
-        super(name, releaseDate, pagesCount, author)
+        super(author, name, releaseDate, pagesCount)
         this.type = 'detective'
     }
 }
@@ -85,12 +85,14 @@ class Library {
     }
 
     giveBookByName(bookName) {
+        
         const result2 = this.books.findIndex(bookFind2 => bookFind2.name == bookName)
         if (result2 === -1) {
             return null
         } else {
+            const findBook = this.books[result2]
             this.books.splice(result2, 1)
-            return this.books[result2]
+            return findBook
         }
     }
 
@@ -117,7 +119,7 @@ class Student {
      }
     }
 
-    addAverage(namePredmet) {
+    getAverageBySubject(namePredmet) {
         let sum = 0
         for (let i = 0; i < this.marks[namePredmet].length; i++) {
             sum += this.marks[namePredmet][i]
@@ -126,19 +128,24 @@ class Student {
         return sum/this.marks[namePredmet].length
     }
 
-    addAverageAll() {
+    //addAverageAll() {
+      //  let sum = 0
+        //let lama = 0
+        //for (let key in this.marks) {
+          //  let markOne = this.marks[key]
+            //for (let i = 0; i < markOne.length; i++) {
+    //            sum += markOne[i]
+      //          lama += 1
+        //    }
+     //   }
+      //  return sum/lama
+    //}
+    getAverage() {
         let sum = 0
-        let lama = 0
-        for (let key in this.marks) {
-            let markOne = this.marks[key]
-            for (let i = 0; i < markOne.length; i++) {
-                sum += markOne[i]
-                lama += 1
-            }
+        for(let key in this.marks) {
+            sum += this.getAverageBySubject(key)
         }
-        return sum/lama
+        console.log( sum/Object.keys(this.marks).length)
     }
 
 }
-const student1 = new Student('vasya', 'm', 18)
-

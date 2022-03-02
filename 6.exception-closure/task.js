@@ -40,7 +40,7 @@ function getTriangle(a, b, c) {
         try {
             return new Triangle(a, b, c)
         } catch {
-            return {getArea: function()  {return 'Ошибка! Треугольник не существует'}, getPerimetr: function()  {return 'Ошибка! Треугольник не существует'}}
+            return {getArea: function()  {return 'Ошибка! Треугольник не существует'}, getPerimeter: function()  {return 'Ошибка! Треугольник не существует'}}
         }
 }
 
