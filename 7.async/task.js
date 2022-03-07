@@ -1,3 +1,4 @@
+'use strict'
 class  AlarmClock {
     constructor() {
         this.alarmCollection = []
@@ -18,7 +19,7 @@ class  AlarmClock {
         if(findId === -1) {
             return 'звонок не найден'
         } else {
-            this.alarmCollection.slice(findId, 1)
+            this.alarmCollection.splice(findId, 1)
             return "звонок удален"
         }
     }
@@ -26,11 +27,31 @@ class  AlarmClock {
         const date = new Date().toLocaleTimeString().slice(0,-3)
         return date
     }
-
     start() {
-        function checkClock() {
-
+        function checkClock(alarm) {
+            if(alarm.time === getCurrentFormattedTime()) {
+                callback()
+            }
+        }
+        if(this.alarmCollection.id === undefined)  {
+            function clockExamination() {
+                this.alarmCollection.forEach(checkClock)
+            }
+            setInterval(clockExamination, 2000)
+        }
+        
+    }
+    stop() {
+        if(this.alarmCollection.id != undefined)  {
+            clearInterval(start())
         }
     }
+    printAlarms() {
+        this.alarmCollection.forEach(function(alarm) {console.log([alarm.id, alarm.time])})
+    }
+    clearAlarms() {
+        clearInterval(start())
+        this.alarmCollection.splice(0, this.alarmCollection.length)
+    }
 }
-const mama = new AlarmClock()
+const clock = new AlarmClock()
