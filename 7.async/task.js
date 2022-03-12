@@ -2,55 +2,76 @@
 class  AlarmClock {
     constructor() {
         this.alarmCollection = []
-        this.timerId 
+        this.timerId = null
     }
     addClock(time, callback, id) {
-        if (id === undefined) {
+        if (!id) {
             throw new Error('не передан id параметр')
         }
         if(this.alarmCollection.some(alarmCol => alarmCol.id === id) === true) {
             console.error('ошибка')
         } else {
-            this.alarmCollection.push({id: id, time: time, callback: callback})
+            this.alarmCollection.push({id, time: time, callback: callback})
         }
     }
     removeClock(id) {
         const findId = this.alarmCollection.findIndex(alarmCol => alarmCol.id === id)
         if(findId === -1) {
-            return 'звонок не найден'
+            return false
         } else {
             this.alarmCollection.splice(findId, 1)
-            return "звонок удален"
+            return true
         }
     }
     getCurrentFormattedTime() {
-        const date = new Date().toLocaleTimeString().slice(0,-3)
-        return date
-    }
-    start() {
-        function checkClock(alarm) {
-            if(alarm.time === getCurrentFormattedTime()) {
-                callback()
-            }
-        }
-        if(this.alarmCollection.id === undefined)  {
-            function clockExamination() {
-                this.alarmCollection.forEach(checkClock)
-            }
-            setInterval(clockExamination, 2000)
-        }
+        return  new Date().toLocaleTimeString().slice(0,-3)
         
     }
+    start() {
+        let sraka = this.alarmCollection.forEach.bind(this.alarmCollection)
+        //const checkClock = (alarm) => { 
+         //   if(alarm.time === this.getCurrentFormattedTime()) {
+          //  alarm.callback()
+       //     console.log(1)
+        //    }
+     //   }
+
+    //    if (!this.timerId) {
+    //        const clockExamination = () => {
+   //             this.alarmCollection.forEach(checkClock)
+   //         }
+   //         this.timerId  = setInterval(clockExamination(), 2000)
+   //     }
+        //this.getCurrentFormattedTime = this.getCurrentFormattedTime.bind(this)
+        let kaka =this.getCurrentFormattedTime.bind(this)
+        function checkClock(alarm) {
+            if(alarm.time === kaka()) {
+                alarm.callback()
+                console.log(1)
+            }
+      }
+        if(!this.timerId)  {
+           
+           function clockExamination() {
+                
+                sraka(checkClock)
+           }
+           this.timerId  = setInterval(clockExamination, 2000)
+            
+        }
+    }
+    
     stop() {
-        if(this.alarmCollection.id != undefined)  {
-            clearInterval(start())
+        if(this.timeId != undefined)  {
+            clearInterval(this.timerId)
+            
         }
     }
     printAlarms() {
         this.alarmCollection.forEach(function(alarm) {console.log([alarm.id, alarm.time])})
     }
     clearAlarms() {
-        clearInterval(start())
+        this.stop()
         this.alarmCollection.splice(0, this.alarmCollection.length)
     }
 }
