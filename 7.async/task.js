@@ -28,7 +28,7 @@ class  AlarmClock {
         
     }
     start() {
-        let sraka = this.alarmCollection.forEach.bind(this.alarmCollection)
+        let binAlarm = this.alarmCollection.forEach.bind(this.alarmCollection)
         //const checkClock = (alarm) => { 
          //   if(alarm.time === this.getCurrentFormattedTime()) {
           //  alarm.callback()
@@ -43,9 +43,9 @@ class  AlarmClock {
    //         this.timerId  = setInterval(clockExamination(), 2000)
    //     }
         //this.getCurrentFormattedTime = this.getCurrentFormattedTime.bind(this)
-        let kaka =this.getCurrentFormattedTime.bind(this)
+        let binTime =this.getCurrentFormattedTime.bind(this)
         function checkClock(alarm) {
-            if(alarm.time === kaka()) {
+            if(alarm.time === binTime()) {
                 alarm.callback()
                 console.log(1)
             }
@@ -54,7 +54,7 @@ class  AlarmClock {
            
            function clockExamination() {
                 
-                sraka(checkClock)
+            binAlarm(checkClock)
            }
            this.timerId  = setInterval(clockExamination, 2000)
             
@@ -62,7 +62,7 @@ class  AlarmClock {
     }
     
     stop() {
-        if(this.timeId != undefined)  {
+        if(this.timerId != undefined)  {
             clearInterval(this.timerId)
             
         }
