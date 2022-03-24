@@ -33,10 +33,11 @@ function debounceDecoratorNew(func, ms) {
       timeout = setTimeout(() => {
         flag = false
       }, ms)
-      } else {
-        clearTimeout(timeout)
-        timeout = setTimeout(() => {flag = false}, ms)
-      }
+    }
+      // } else {
+      //   clearTimeout(timeout)
+      //   timeout = setTimeout(() => {flag = false}, ms)
+      // }
 
     }
   
@@ -51,7 +52,6 @@ function debounceDecorator2(func, ms) {
   let timeout
   let flag = false
   function wrapper(...args) {
-    
     if(flag === false) { 
       func(...args)
       wrapper.history +=1
@@ -59,10 +59,10 @@ function debounceDecorator2(func, ms) {
       timeout = setTimeout(() => {
         flag = false
       }, ms)
-      } else {
+    } else {
         wrapper.history +=1
-        clearTimeout(timeout)
-        timeout = setTimeout(() => {flag = false}, ms)
+      //   clearTimeout(timeout)
+      //   timeout = setTimeout(() => {flag = false}, ms)
       }
 
     }
@@ -70,3 +70,7 @@ function debounceDecorator2(func, ms) {
   return wrapper
   // Ваш код
 }
+function saySay() {
+  console.log('hi')
+}
+const upgrDebounce = debounceDecorator2(saySay, 2000)
