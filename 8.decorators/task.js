@@ -21,8 +21,7 @@ function cachingDecoratorNew(func) {
   // Ваш код
   
 }
-const addThree = (a, b, c) => a+b+c
-const upgradedAddThree = cachingDecoratorNew(addThree)
+
 
 function debounceDecoratorNew(func, ms) {
   let timeout
@@ -44,33 +43,30 @@ function debounceDecoratorNew(func, ms) {
   return wrapper
   // Ваш код
 }
-const sendSignal = () => console.log('сигнал отправлен')
-const upgradedSendSignal = debounceDecoratorNew(sendSignal, 2000)
+
 
 
 function debounceDecorator2(func, ms) {
-  let count = 0
+  wrapper.history = 0
   let timeout
   let flag = false
   function wrapper(...args) {
+    
     if(flag === false) { 
       func(...args)
-      count +=1
+      wrapper.history +=1
       flag = true
       timeout = setTimeout(() => {
         flag = false
       }, ms)
       } else {
-        count +=1
+        wrapper.history +=1
         clearTimeout(timeout)
         timeout = setTimeout(() => {flag = false}, ms)
       }
 
     }
 
-
   return wrapper
   // Ваш код
 }
-const sendSignal1 = () => console.log('сигнал отправлен')
-const upgradedSendSignal1 = debounceDecorator2(sendSignal1, 2000)
