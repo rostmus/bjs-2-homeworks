@@ -34,20 +34,7 @@ function debounceDecoratorNew(func, ms) {
     },ms)
     }
   }
-// function debounceDecoratorNew(func, ms) {
-//   let timeout
-//   let flag = false
-//   function wrapper(...args) {
-//     if(flag === false) { 
-//       func(...args)
-//       flag = true
-//       timeout = setTimeout(() => {
-//         flag = false
-//       }, ms)
-//     }
-//   }
-//   return wrapper
-// }
+
 
 
 
@@ -59,18 +46,18 @@ function debounceDecorator2(func, ms) {
   let flag = false
   function wrapper(...args) {
     wrapper.quantity +=1
-    if(flag === false) { 
+    if(flag === false) {
       func(...args)
       flag = true
-      timeout = setTimeout(() => {
-        flag = false
-      }, ms)
-    } 
-
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(()=> {
+      func(...args)
+      flag === false
+    },ms)
     }
 
   return wrapper
-  // Ваш код
 }
 function saySay() {
   console.log('hi')
