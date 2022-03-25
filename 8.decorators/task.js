@@ -3,10 +3,10 @@ function cachingDecoratorNew(func) {
   let cashe = []
   function wrapper(... args) {
     const hash = args.join(',')
-    let idx = cashe.find((item)=>item.hash === hash)
-    if (idx != undefined ) {
-      console.log('Из кэша: ' + idx.result)
-      return 'Из кэша: ' + idx.result
+    let element = cashe.find((item)=>item.hash === hash)
+    if (element) {
+      console.log('Из кэша: ' + element.result)
+      return 'Из кэша: ' + element.result
     } 
     let result = func(...args)
     cashe.push({hash, result })
@@ -19,28 +19,37 @@ function cachingDecoratorNew(func) {
   return wrapper
 }
 
-
 function debounceDecoratorNew(func, ms) {
   let timeout
   let flag = false
-  function wrapper(...args) {
-    if(flag === false) { 
+  return function (...args) {
+    if(flag === false) {
       func(...args)
       flag = true
-      timeout = setTimeout(() => {
-        flag = false
-      }, ms)
     }
-      // } else {
-      //   clearTimeout(timeout)
-      //   timeout = setTimeout(() => {flag = false}, ms)
-      // }
+    clearTimeout(timeout)
+    timeout = setTimeout(()=> {
+      func(...args)
+      flag === false
+    },ms)
+    }
+  }
+// function debounceDecoratorNew(func, ms) {
+//   let timeout
+//   let flag = false
+//   function wrapper(...args) {
+//     if(flag === false) { 
+//       func(...args)
+//       flag = true
+//       timeout = setTimeout(() => {
+//         flag = false
+//       }, ms)
+//     }
+//   }
+//   return wrapper
+// }
 
-    }
-  
-  return wrapper
-  // Ваш код
-}
+
 
 
 
